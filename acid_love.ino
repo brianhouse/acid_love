@@ -1,7 +1,7 @@
 #include <toneAC.h>
 #define SPEAKER A0
-#define RANGE_LOW 40
-#define RANGE_HIGH 100
+#define RANGE_LOW 60
+#define RANGE_HIGH 90
 
 unsigned long DURATION = 1;    // in minutes
 unsigned long LFO = 20;        // in seconds
@@ -35,27 +35,26 @@ void loop() {
   
   int pitch_1 = (int)((data[i] / 100.0) * (RANGE_HIGH - RANGE_LOW)) + RANGE_LOW;  
   int pitch_2 = (int)((data[(i + 1) % data_length] / 100.0) * (RANGE_HIGH - RANGE_LOW)) + RANGE_LOW;
-  int pitch = pitch_1 + ((pitch_2 - pitch_1) * pos);
+  float pitch = pitch_1 + ((pitch_2 - pitch_1) * pos);
 
-  float volume = (m % LFO) / float(LFO);
-  volume *= 6;
-  volume += 5;
+  float duty = (m % LFO) / float(LFO);
+  duty *= 60;
+  duty += 20;
+  if (duty > 50) duty = 50 - (duty - 50);
   
-  toneAC(pitch, volume);
+  toneAC(pitch, duty);
 
-  Serial.print(i);
-  Serial.print(" ");
-  Serial.print(pos);
-  Serial.print(" ");
-  Serial.print(pitch_1);
-  Serial.print(" ");
-  Serial.print(pitch_2);
-  Serial.print(" > ");
-  Serial.print(pitch);
-  Serial.print(" @ ");
-  Serial.print(volume);  
-  Serial.println();
-
-  delay(1);
+//  Serial.print(i);
+//  Serial.print(" ");
+//  Serial.print(pos);
+//  Serial.print(" ");
+//  Serial.print(pitch_1);
+//  Serial.print(" ");
+//  Serial.print(pitch_2);
+//  Serial.print(" > ");
+//  Serial.print(pitch);
+//  Serial.print(" @ ");
+//  Serial.print(duty);  
+//  Serial.println();
       
 }
