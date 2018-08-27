@@ -8,6 +8,6 @@ ok, now this thing is a real pwm.
 
 /
 
-these are all going to start up at the same time, so there needs to be a chip-based offset
-
 data should be different lengths
+
+is separate metals interesting in this context? not really -- should be ph at stages of remediation
