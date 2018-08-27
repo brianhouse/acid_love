@@ -36,6 +36,7 @@ void loop() {
   int pitch_1 = (int)((data[i] / 100.0) * (RANGE_HIGH - RANGE_LOW)) + RANGE_LOW;  
   int pitch_2 = (int)((data[(i + 1) % data_length] / 100.0) * (RANGE_HIGH - RANGE_LOW)) + RANGE_LOW;
   float pitch = pitch_1 + ((pitch_2 - pitch_1) * pos);
+  pitch = 112.0;
 
   float duty = (m % LFO) / float(LFO);
   duty *= 60;
